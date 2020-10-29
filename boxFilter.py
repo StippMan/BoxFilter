@@ -5,7 +5,7 @@ import sys
 import getopt as gpt
 
 
-imgfile_in = 'peppers.png'
+input_imgfile = 'peppers.png'
 boxradius = 1
 reduction_rate = 2
 
@@ -13,35 +13,39 @@ reduction_rate = 2
 args = sys.argv
 for i, arg in enumerate(args):
 	if arg == "-i":
-		imgfile_in = args[i + 1]
+		input_imgfile = args[i + 1]
 	elif arg == "-r":
 		reduction_rate = int(args[i + 1])
 
-imgfile_out = imgfile_in
 
-input_img = cv2.imread("input_images/"+imgfile_in,1)
+
+input_img = cv2.imread("input_images/"+input_imgfile,1)
 boxsize = boxradius*2 + 1
 box = np.ones((boxsize,boxsize))
 
 
+imgfile_name,imgfile_extension = input_imgfile.split('.')
 
 downsampled_img = input_img
+downsampled_imgfile = '.'.join([imgfile_name+'_downsampled',imgfile_extension])
+
 blurred_img = downsampled_img
+blurred_imgfile = '.'.join([imgfile_name+'_blurred',imgfile_extension])
 
-cv2.imwrite("output_images/"+imgfile_out,downsampled_img)
-cv2.imwrite("output_images/"+imgfile_out,blurred_img)
+cv2.imwrite("output_images/"+downsampled_imgfile,downsampled_img)
+cv2.imwrite("output_images/"+blurred_imgfile,blurred_img)
 
-cv2.namedWindow('input', cv2.WINDOW_NORMAL)
-cv2.imshow("input", input_img)
+cv2.namedWindow('input_imgfile', cv2.WINDOW_NORMAL)
+cv2.imshow("input_imgfile", input_img)
 
-cv2.namedWindow('downsampled', cv2.WINDOW_NORMAL)
-cv2.imshow("downsampled", downsampled_img)
+cv2.namedWindow('downsampled_imgfile', cv2.WINDOW_NORMAL)
+cv2.imshow("downsampled_imgfile", downsampled_img)
 
-cv2.namedWindow('blurred', cv2.WINDOW_NORMAL)
-cv2.imshow("blurred", blurred_img)
+cv2.namedWindow('blurred_imgfile', cv2.WINDOW_NORMAL)
+cv2.imshow("blurred_imgfile", blurred_img)
 
 cv2.waitKey()
 cv2.destroyAllWindows()
 
-# viewImage(img_out,imgfile_out)
+# viewImage(img_out,downsampled_imgfile)
 
