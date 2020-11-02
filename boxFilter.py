@@ -6,7 +6,7 @@ import getopt as gpt
 
 def box_blur(img,box_size):
 	"""
-	Applies a box_blur of size box_size to img
+	Applies a box_blur of size box_size x box_size to img
 
 	Returns an image of the same dimensions as img
 	"""
@@ -16,7 +16,7 @@ def box_blur(img,box_size):
 	blurred_img = img[:]
 
 
-	
+
 
 	return blurred_img
 
