@@ -10,14 +10,20 @@ def box_blur(img,box_size):
 
 	Returns an image of the same dimensions as img
 	"""
-
+	img_length, img_height, img_depth = img.shape
+	print(img_length, img_height, img_depth)
+	box = np.ones((box_size,box_size))
 	blurred_img = img[:]
+
+
+	
 
 	return blurred_img
 
 
 input_imgfile = 'peppers.png'
 reduction_rate = 2
+box_size = 3
 
 args = sys.argv
 for i, arg in enumerate(args):
@@ -29,7 +35,6 @@ for i, arg in enumerate(args):
 		box_size = int(args[i + 1])
 
 input_img = cv2.imread("input_images/"+input_imgfile,1)
-box = np.ones((box_size,box_size))
 
 
 imgfile_name,imgfile_extension = input_imgfile.split('.')
