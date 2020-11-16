@@ -15,7 +15,7 @@ def box_blur(img,box_size,r):
 
 	for row in range(0,img.shape[0]-box_size,r):
 		for col in range(0,img.shape[1]-box_size,r):
-			box = make_box(img,box_size,row,col)
+			box = img[row:row+box_size,col:col+box_size,:3]
 			box_sum = sum_elements(box,box_size)
 			blurred_row.append(box_sum)
 		blurred_img.append(blurred_row)
@@ -23,8 +23,6 @@ def box_blur(img,box_size,r):
 
 	return np.array(blurred_img,dtype=np.uint8)
 
-def make_box(img,box_size,row,col):
-	return img[row:row+box_size,col:col+box_size,:3]
 
 def sum_elements(box, box_size):
 	
