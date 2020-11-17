@@ -4,24 +4,19 @@ import skimage as ski
 import sys
 import getopt as gpt
 
-def box_blur(img,box_size,r):
+def box_blur(img,box_size):
 	"""
 	Applies a box_blur of size box_size by box_size to img
 
 	Returns an image with the same dimensions as img
 	"""
-	blurred_img = []
-	blurred_row = []
-
-	for row in range(0,img.shape[0]-box_size,r):
-		for col in range(0,img.shape[1]-box_size,r):
+	for row in range(0,img.shape[0]-box_size,1):
+		for col in range(0,img.shape[1]-box_size,1):
 			box = img[row:row+box_size,col:col+box_size,:3]
-			box_sum = sum_elements(box,box_size)
-			blurred_row.append(box_sum)
-		blurred_img.append(blurred_row)
-		blurred_row = []
+			box_sum = sum_elements(box,box_size)		
+			img[row][col] = box_sum
 
-	return np.array(blurred_img,dtype=np.uint8)
+	return np.array(img,dtype=np.uint8)
 
 
 def sum_elements(box, box_size):
@@ -74,7 +69,7 @@ cv2.namedWindow('downsampled_imgfile', cv2.WINDOW_NORMAL)
 cv2.imshow("downsampled_imgfile", upsampled_img)
 
 # img com box filter
-blurred_img = box_blur(input_img,box_size,reduction_rate)
+blurred_img = box_blur(upsampled_img,box_size)
 blurred_imgfile = '.'.join([imgfile_name+'_blurred',imgfile_extension])
 cv2.imwrite("output_images/"+blurred_imgfile,blurred_img)
 cv2.namedWindow('blurred_imgfile', cv2.WINDOW_NORMAL)
